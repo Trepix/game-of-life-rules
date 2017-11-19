@@ -1,7 +1,10 @@
 package io.trepix.golrules;
 
+
+import static org.mockito.Mockito.*;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
@@ -85,6 +88,17 @@ public class CellTest {
                 createAdjacentCell(State.ALIVE));
         State nextState = cell.calculateNextState(cells);
         Assert.assertEquals(State.DEAD, nextState);
+    }
+
+    @Test
+    public void whenIsAdjacentIsCalled_ShouldDelegateItsLogicToPosition() {
+        Position mockedPosition = Mockito.mock(Position.class);
+        Cell cell = new Cell(mockedPosition, State.ALIVE);
+
+        when(mockedPosition.isAdjacent(mockedPosition)).thenReturn(true);
+        cell.isAdjacent(cell);
+
+        verify(mockedPosition, times(1)).isAdjacent(mockedPosition);
     }
 
 

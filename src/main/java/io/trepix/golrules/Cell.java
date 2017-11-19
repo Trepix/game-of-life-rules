@@ -25,7 +25,7 @@ public class Cell {
     }
 
     public boolean isAdjacent(Cell cell) {
-        return false;
+        return this.position.isAdjacent(cell.position);
     }
 
     private boolean isUnderPopulation(Integer aliveAdjacentCells) {
