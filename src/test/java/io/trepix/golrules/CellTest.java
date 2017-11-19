@@ -1,14 +1,15 @@
 package io.trepix.golrules;
 
-
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static io.trepix.golrules.stubs.OverrodeAdjacentCell.createAdjacentCell;
 import static io.trepix.golrules.stubs.OverrodeAdjacentCell.createNonAdjacentCell;
+import static org.mockito.Mockito.*;
 
 public class CellTest {
 
@@ -90,6 +91,17 @@ public class CellTest {
                 createAdjacentCell(State.ALIVE));
         Cell nextCell = cell.applyGameOfLifeRules(cells);
         Assert.assertEquals(DEAD_CELL, nextCell);
+    }
+
+    @Test
+    public void whenIsAdjacentIsCalled_ShouldDelegateItsLogicToPosition() {
+        Position mockedPosition = Mockito.mock(Position.class);
+        Cell cell = new Cell(mockedPosition, State.ALIVE);
+
+        when(mockedPosition.isAdjacent(mockedPosition)).thenReturn(true);
+        cell.isAdjacent(cell);
+
+        verify(mockedPosition, times(1)).isAdjacent(mockedPosition);
     }
 
 }

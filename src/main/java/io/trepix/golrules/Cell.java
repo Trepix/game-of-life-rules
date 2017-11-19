@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@Getter
 @EqualsAndHashCode
 @RequiredArgsConstructor
 public class Cell {
@@ -32,7 +31,7 @@ public class Cell {
     }
 
     public boolean isAdjacent(Cell cell) {
-        return false;
+        return this.position.isAdjacent(cell.position);
     }
 
     private boolean isUnderPopulation(Integer aliveAdjacentCells) {
